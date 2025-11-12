@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "ironblocksmod",
+  "version": "1.0.0",
+  "name": "ironblocksmod",
+  "description": "",
+  "authors": [],
+  "contact": {
+    "repo": "https://github.com/Alex/mymod"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/ironblocksmod/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [],
+    "main": [
+      "com.godyncend.mixinmodminecraft.client.FishingBoyMod",
+      "com.godyncend.mixinmodminecraft.command.VanishCommand",
+      "com.godyncend.mixinmodminecraft.command.QuoteCommand"
+    ]
+  },
+  "mixins": [
+    "ironblocksmod.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": "1.16.x"
+  }
+}
