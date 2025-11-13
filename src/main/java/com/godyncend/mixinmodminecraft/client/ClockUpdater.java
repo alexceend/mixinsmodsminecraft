@@ -14,46 +14,56 @@ public class ClockUpdater {
     private static long lastFetchTime = 0;
     private static long FETCH_INTERVAL_MS = 10_000;
 
-    public static void init(){
+    public static void init() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             long now = System.currentTimeMillis();
             if (now - lastFetchTime > FETCH_INTERVAL_MS) {
                 lastFetchTime = now;
                 TimeFetcher.fetchTime().thenAccept(hourRequest -> {
                     ClockTime.currentHour = hourRequest.getHour();
-                    System.out.println("[CLOCK REQUEST] GOT TIME " + hourRequest.getHour());
                     ClockTime.currentMinute = hourRequest.getMinute();
-                    updateHeldItems(client);
-                    updateItemFrames(client.world);
-                    System.out.println("[CLOCK UPDATER] UPDATED HELD ITEMS " + ClockTime.currentHour + ":" + ClockTime.currentMinute);
+                    System.out.println("[CLOCK REQUEST] GOT TIME " + hourRequest.getHour());
+
+                    MinecraftClient.getInstance().execute(() -> {
+                        updateHeldItems(client);
+                        updateItemFrames(client.world);
+                        System.out.println("[CLOCK UPDATER] UPDATED HELD ITEMS " + ClockTime.currentHour + ":" + ClockTime.currentMinute);
+                    });
                 });
             }
         });
     }
 
-    private static void updateItemFrames(World world){
-        if(world == null){
-            System.out.println("[CLOCK UPDATER] NO WORLD FOUND");
+    private static void updateItemFrames(World world) {
+        if (world == null || MinecraftClient.getInstance().player == null) {
+            System.out.println("[CLOCK UPDATER] World or player not ready");
             return;
         }
 
-        System.out.println("[CLOCK UPDATER] WORLD FOUND");
+        try {
+            // Only check nearby item frames (e.g. within 128 blocks)
+            var player = MinecraftClient.getInstance().player;
+            Box searchBox = player.getBoundingBox().expand(128);
 
+            var frames = world.getEntitiesByClass(ItemFrameEntity.class, searchBox, e -> true);
 
-        for (Entity e : world.getEntitiesByClass(ItemFrameEntity.class, new Box(-30000000, -64, -30000000, 30000000, 320, 30000000),
-                p -> true)) {
+            System.out.println("[CLOCK UPDATER] FOUND " + frames.size() + " ITEM FRAMES");
 
-            if (!(e instanceof ItemFrameEntity)) continue;
+            for (ItemFrameEntity frame : frames) {
+                ItemStack stack = frame.getHeldItemStack();
+                if (stack.getItem() instanceof DigitalClockHourItem) {
+                    ItemStack newStack = stack.copy();
+                    ((DigitalClockHourItem) newStack.getItem()).updateTime(newStack, ClockTime.currentHour);
 
-            ItemFrameEntity frame = (ItemFrameEntity) e;
-            ItemStack stack = frame.getHeldItemStack();
-
-            if (stack.getItem() instanceof DigitalClockHourItem) {
-                // Copy the stack to trigger the model update
-                ItemStack newStack = stack.copy();
-                ((DigitalClockHourItem) newStack.getItem()).updateTime(newStack, ClockTime.currentHour);
-                frame.setHeldItemStack(newStack, false); // false = don't drop old stack
+                    // Force rerender safely
+                    frame.setHeldItemStack(ItemStack.EMPTY, false);
+                    frame.setHeldItemStack(newStack, false);
+                    System.out.println("[CLOCK UPDATER] Updated frame clock");
+                }
             }
+        } catch (Exception ex) {
+            System.err.println("[CLOCK UPDATER] ERROR while updating frames:");
+            ex.printStackTrace();
         }
     }
 
