@@ -59,6 +59,13 @@ public class ClockUpdater {
                     frame.setHeldItemStack(ItemStack.EMPTY, false);
                     frame.setHeldItemStack(newStack, false);
                     System.out.println("[CLOCK UPDATER] Updated frame clock");
+                }else if (stack.getItem() instanceof DigitalClockMinuteItem){
+                    ItemStack newStack = stack.copy();
+                    ((DigitalClockMinuteItem) newStack.getItem()).updateTime(newStack, ClockTime.currentMinute);
+
+                    // Force rerender safely
+                    frame.setHeldItemStack(ItemStack.EMPTY, false);
+                    frame.setHeldItemStack(newStack, false);
                 }
             }
         } catch (Exception ex) {
