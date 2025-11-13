@@ -1,0 +1,32 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "ironblocksmod:item/hour_0"
+  },
+  "overrides": [
+    { "predicate": { "custom_model_data": 1 }, "model": "ironblocksmod:item/hour_0" },
+    { "predicate": { "custom_model_data": 2 }, "model": "ironblocksmod:item/hour_1" },
+    { "predicate": { "custom_model_data": 3 }, "model": "ironblocksmod:item/hour_2" },
+    { "predicate": { "custom_model_data": 4 }, "model": "ironblocksmod:item/hour_3" },
+    { "predicate": { "custom_model_data": 5 }, "model": "ironblocksmod:item/hour_4" },
+    { "predicate": { "custom_model_data": 6 }, "model": "ironblocksmod:item/hour_5" },
+    { "predicate": { "custom_model_data": 7 }, "model": "ironblocksmod:item/hour_6" },
+    { "predicate": { "custom_model_data": 8 }, "model": "ironblocksmod:item/hour_7" },
+    { "predicate": { "custom_model_data": 9 }, "model": "ironblocksmod:item/hour_8" },
+    { "predicate": { "custom_model_data": 10 }, "model": "ironblocksmod:item/hour_9" },
+    { "predicate": { "custom_model_data": 11 }, "model": "ironblocksmod:item/hour_10" },
+    { "predicate": { "custom_model_data": 12 }, "model": "ironblocksmod:item/hour_11" },
+    { "predicate": { "custom_model_data": 13 }, "model": "ironblocksmod:item/hour_12" },
+    { "predicate": { "custom_model_data": 14 }, "model": "ironblocksmod:item/hour_13" },
+    { "predicate": { "custom_model_data": 15 }, "model": "ironblocksmod:item/hour_14" },
+    { "predicate": { "custom_model_data": 16 }, "model": "ironblocksmod:item/hour_15" },
+    { "predicate": { "custom_model_data": 17 }, "model": "ironblocksmod:item/hour_16" },
+    { "predicate": { "custom_model_data": 18 }, "model": "ironblocksmod:item/hour_17" },
+    { "predicate": { "custom_model_data": 19 }, "model": "ironblocksmod:item/hour_18" },
+    { "predicate": { "custom_model_data": 20 }, "model": "ironblocksmod:item/hour_19" },
+    { "predicate": { "custom_model_data": 21 }, "model": "ironblocksmod:item/hour_20" },
+    { "predicate": { "custom_model_data": 22 }, "model": "ironblocksmod:item/hour_21" },
+    { "predicate": { "custom_model_data": 23 }, "model": "ironblocksmod:item/hour_22" },
+    { "predicate": { "custom_model_data": 24 }, "model": "ironblocksmod:item/hour_23" }
+  ]
+}
