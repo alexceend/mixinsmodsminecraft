@@ -16,7 +16,8 @@
     "main": [
       "com.godyncend.mixinmodminecraft.client.FishingBoyMod",
       "com.godyncend.mixinmodminecraft.command.VanishCommand",
-      "com.godyncend.mixinmodminecraft.command.QuoteCommand"
+      "com.godyncend.mixinmodminecraft.command.QuoteCommand",
+      "com.godyncend.mixinmodminecraft.client.ClockClientMod"
     ]
   },
   "mixins": [

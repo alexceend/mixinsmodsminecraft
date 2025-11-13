@@ -13,6 +13,7 @@ public class FishingBoyMod implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        System.out.println("[FISHING BOY] INITIALIZED");
         Registry.register(Registry.ITEM, new Identifier("ironblocksmod", "fishing_item"), CUSTOM_IMAGE_ITEM);
     }
 }
